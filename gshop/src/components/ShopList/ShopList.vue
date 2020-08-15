@@ -49,32 +49,34 @@
   </div>
 </template>
 <script>
-  import {mapState} from 'vuex'
-  import Star from '../Star/Star.vue'
+import {mapState} from 'vuex'
+import Star from '../Star/Star.vue'
 
-  export default {
-    data () {
-      return {
-        imgBaseUrl: 'https://m.qpic.cn/psc?/V10ZLqO130qPxl/'
-        // shops: []
-      }
-    },
-    computed: {
-      ...mapState(['shops']),
-      /*shopsArr () {
+export default {
+  data () {
+    return {
+      imgBaseUrl: 'https://m.qpic.cn/psc?/V10ZLqO130qPxl/'
+      // shops: []
+    }
+  },
+  computed: {
+    ...mapState(['shops']),
+    /* shopsArr () {
         const {shops} = this
         let arr = shops.slice(0,4)
         return arr
-      }*/
+      }* /
     },
     /*mounted () {
       this.shops = this.$store.state.shops.slice(0,4)
-    }*/
+    } */
     components: {
       Star
     }
   }
+}
 </script>
+
 <style lang="stylus" rel="stylesheet/stylus">
   @import "../../common/stylus/mixins.styl"
   .shop_container

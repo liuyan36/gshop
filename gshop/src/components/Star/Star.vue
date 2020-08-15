@@ -4,40 +4,40 @@
   </div>
 </template>
 <script>
-  // 类名常量
-  const CLASS_ON = 'on'
-  const CLASS_HALF = 'half'
-  const CLASS_OFF = 'off'
-  export default {
-    props: {
-      score: Number,
-      size: Number
-    },
-    computed: {
-      /*
-      3.2: 3+0+2
-      3.5: 3+1+1
-      */
-      starClasses () {
-        const {score} = this
-        const scs = []
-        // 在数组scs添加n个'on'
-        const scoreInt = Math.floor(score)
-        for(let i = 0; i < scoreInt;i++) {
-          scs.push(CLASS_ON)
-        }
-        // 在数组scs添加0或1个'half'
-        if ((score - scoreInt)*10 >= 5) { // 不精确所以乘10，大于5，原来只要大于0.5
-          scs.push(CLASS_HALF)
-        }
-        // 在数组scs添加n个'off'
-        while(scs.length<5) { // 数组不满5自动补
-          scs.push(CLASS_OFF)
-        }
-        return scs
+// 类名常量
+const CLASS_ON = 'on'
+const CLASS_HALF = 'half'
+const CLASS_OFF = 'off'
+export default {
+  props: {
+    score: Number,
+    size: Number
+  },
+  computed: {
+    /*
+    3.2: 3+0+2
+    3.5: 3+1+1
+    */
+    starClasses () {
+      const {score} = this
+      const scs = []
+      // 在数组scs添加n个'on'
+      const scoreInt = Math.floor(score)
+      for (let i = 0; i < scoreInt; i++) {
+        scs.push(CLASS_ON)
       }
+      // 在数组scs添加0或1个'half'
+      if ((score - scoreInt) * 10 >= 5) { // 不精确所以乘10，大于5，原来只要大于0.5
+        scs.push(CLASS_HALF)
+      }
+      // 在数组scs添加n个'off'
+      while (scs.length < 5) { // 数组不满5自动补
+        scs.push(CLASS_OFF)
+      }
+      return scs
     }
   }
+}
 </script>
 <style lang="stylus" rel="stylesheet/stylus">
   @import "../../common/stylus/mixins.styl"

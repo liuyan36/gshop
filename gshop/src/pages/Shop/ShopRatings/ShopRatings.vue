@@ -75,60 +75,60 @@
 </template>
 
 <script>
-  import BScroll from 'better-scroll'
-  import {mapState,mapGetters} from 'vuex'
-  import Star from '../../../components/Star/Star.vue'
-  export default {
-    data () {
-      return {
-        onlyShowText: true, // 是否只显示有内容的
-        selectType: 2, // 选择的评价类型：0-满意，1-不满意，2-全部
-      }
-    },
-    mounted () {
-      this.$store.dispatch('getShopRatings',() => {
-        this.$nextTick(() => {
-          new BScroll(this.$refs.ratings,{
-            click: true
-          })
+import BScroll from 'better-scroll'
+import {mapState, mapGetters} from 'vuex'
+import Star from '../../../components/Star/Star.vue'
+export default {
+  data () {
+    return {
+      onlyShowText: true, // 是否只显示有内容的
+      selectType: 2 // 选择的评价类型：0-满意，1-不满意，2-全部
+    }
+  },
+  mounted () {
+    this.$store.dispatch('getShopRatings', () => {
+      this.$nextTick(() => {
+        new BScroll(this.$refs.ratings, {
+          click: true
         })
       })
-    },
-    computed: {
-      ...mapState(['info','ratings']),
-      ...mapGetters(['positiveSize']),
-      filterRatings () { // 评论分类过滤
-        // 得到相关数据
-        const {ratings,onlyShowText,selectType} = this
-        // 产生一个新数组
-        return ratings.filter(rating => {
-          const {rateType,text} = rating
-          /*
-            条件1. 
-              selectType: 0/1/2
-              rateType: 0/1
-              selectType==2 || selectType==rateType
-            条件2.
-              onlyShowText: T/F
-              text: 有值/没值
-              !onlyShowText || text.length>0
-          */
-          return (selectType==2 || selectType==rateType) && (!onlyShowText || text.length>0)
-        })
-      }
-    },
-    methods: {
-      setSelectType (type) {
-        this.selectType = type
-      },
-      toggleOnlyShowText () {
-        this.onlyShowText = !this.onlyShowText
-      }
-    },
-    components: {
-      Star
+    })
+  },
+  computed: {
+    ...mapState(['info', 'ratings']),
+    ...mapGetters(['positiveSize']),
+    filterRatings () { // 评论分类过滤
+      // 得到相关数据
+      const {ratings, onlyShowText, selectType} = this
+      // 产生一个新数组
+      return ratings.filter(rating => {
+        const {rateType, text} = rating
+        /*
+          条件1.
+            selectType: 0/1/2
+            rateType: 0/1
+            selectType==2 || selectType==rateType
+          条件2.
+            onlyShowText: T/F
+            text: 有值/没值
+            !onlyShowText || text.length>0
+        */
+        return (selectType === 2 || selectType === rateType) && (!onlyShowText || text.length > 0)
+      })
     }
+  },
+  methods: {
+    setSelectType (type) {
+      this.selectType = type
+    },
+    toggleOnlyShowText () {
+      this.onlyShowText = !this.onlyShowText
+    }
+  },
+  components: {
+    Star
   }
+}
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

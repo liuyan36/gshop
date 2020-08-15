@@ -50,67 +50,67 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex'
-  import Swiper from 'swiper'
-  import 'swiper/dist/css/swiper.min.css'
-  import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
-  import ShopList from '../../components/ShopList/ShopList.vue'
-  export default {
-    data () {
-      return {
-        baseImageUrl: 'https://fuss10.elemecdn.com'
-      }
-    },
-    mounted () {
-      this.$store.dispatch('getCategorys')
-      this.$store.dispatch('getShops')
-    },
-    computed: {
-      ...mapState(['address','categorys','userInfo']),
-
-      /*
-      根据categorys一维数组生成一个二维数组
-      小数组中元素数量最大为8
-      */
-      categorysArr () {
-        const {categorys} = this
-        // 准备空的二维数组
-        const arr = []
-        let minArr = []
-        // 遍历categorys
-        categorys.forEach(c => {
-          if (minArr.length===8) {
-            arr.push(minArr)
-            minArr = []
-          }
-          minArr.push(c)
-        })
-        if (minArr) {
-          arr.push(minArr)
-        }
-        return arr
-      }
-    },
-    watch: {
-      categorys (value) { // categorys数组中有数据了，在异步更新界面之前执行
-        // 希望界面更新就立即创建swiper对象
-        this.$nextTick(() => { // 一旦界面更新立即调用(要写在数据更新之后)
-          // 创建一个swiper实例对象实现轮播
-          new Swiper('.swiper-container',{
-            loop: true, // 循环轮播
-            // 如果需要分页器
-            pagination: {
-              el: '.swiper-pagination'
-            }
-          })
-        })
-      }
-    },
-    components: {
-      HeaderTop,
-      ShopList
+import {mapState} from 'vuex'
+import Swiper from 'swiper'
+import 'swiper/dist/css/swiper.min.css'
+import HeaderTop from '../../components/HeaderTop/HeaderTop.vue'
+import ShopList from '../../components/ShopList/ShopList.vue'
+export default {
+  data () {
+    return {
+      baseImageUrl: 'https://fuss10.elemecdn.com'
     }
+  },
+  mounted () {
+    this.$store.dispatch('getCategorys')
+    this.$store.dispatch('getShops')
+  },
+  computed: {
+    ...mapState(['address', 'categorys', 'userInfo']),
+
+    /*
+    根据categorys一维数组生成一个二维数组
+    小数组中元素数量最大为8
+    */
+    categorysArr () {
+      const {categorys} = this
+      // 准备空的二维数组
+      const arr = []
+      let minArr = []
+      // 遍历categorys
+      categorys.forEach(c => {
+        if (minArr.length === 8) {
+          arr.push(minArr)
+          minArr = []
+        }
+        minArr.push(c)
+      })
+      if (minArr) {
+        arr.push(minArr)
+      }
+      return arr
+    }
+  },
+  watch: {
+    categorys (value) { // categorys数组中有数据了，在异步更新界面之前执行
+      // 希望界面更新就立即创建swiper对象
+      this.$nextTick(() => { // 一旦界面更新立即调用(要写在数据更新之后)
+        // 创建一个swiper实例对象实现轮播
+        new Swiper('.swiper-container', {
+          loop: true, // 循环轮播
+          // 如果需要分页器
+          pagination: {
+            el: '.swiper-pagination'
+          }
+        })
+      })
+    }
+  },
+  components: {
+    HeaderTop,
+    ShopList
   }
+}
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus">

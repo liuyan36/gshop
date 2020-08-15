@@ -43,82 +43,84 @@
 </template>
 
 <script>
-  import { MessageBox } from 'mint-ui'
-  import BScroll from 'better-scroll'
-  import {mapState, mapGetters} from 'vuex'
-  import CartControl from '../CartControl/CartControl.vue'
+import { MessageBox } from 'mint-ui'
+import BScroll from 'better-scroll'
+import {mapState, mapGetters} from 'vuex'
+import CartControl from '../CartControl/CartControl.vue'
 
-  export default {
-    data () {
-      return {
-        isShow: false
-      }
-    },
-    computed: {
-      ...mapState(['cartFoods','info']),
-      ...mapGetters(['totalCount','totalPrice']),
-      payClass () {
-        const {totalPrice} = this
-        const {minPrice} = this.info
-        return totalPrice>=minPrice? 'enough' : 'not-enough'
-      },
-      payText () {
-        const {totalPrice} = this
-        const {minPrice} = this.info
-        if (totalPrice==0) {
-          return `￥${minPrice}元起送`
-        } else if (totalPrice<minPrice) {
-          return `还差￥${minPrice-totalPrice}元起送`
-        } else {
-          return '结算'
-        }
-      },
-      listShow () {
-        // 如果总数量为0，直接不显示
-        if (this.totalCount==0) {
-          this.isShow = false
-          return false
-        } else {
-          if (this.isShow) {
-            this.$nextTick(() => {
-              // 防止创建多个BScroll，实现它的实例是一个单例
-              if (!this.scroll) {
-                this.scroll = new BScroll('.list-content',{
-                  click: true
-                })
-              } else {
-                // 刷新滚动条，重新统计内容高度
-                this.scroll.refresh()
-              }
-            })
-          }
-          return this.isShow
-        }
-      }
-    },
-    methods: {
-      toggleIsShow () {
-        // 当总数量大于0时才切换
-        if (this.totalCount>0) {
-          this.isShow = !this.isShow
-        }
-      },
-
-      clearCart () {
-        MessageBox.confirm('确定清空购物车吗？').then(
-          action => {
-            this.$store.dispatch('clearCart')
-          },
-          action => {
-            // 取消todo
-          }
-        );
-      }
-    },
-    components: {
-      CartControl
+export default {
+  data () {
+    return {
+      isShow: false
     }
+  },
+  computed: {
+    ...mapState(['cartFoods', 'info']),
+    ...mapGetters(['totalCount', 'totalPrice']),
+    payClass () {
+      const {totalPrice} = this
+      const {minPrice} = this.info
+      return totalPrice >= minPrice ? 'enough' : 'not-enough'
+    },
+    payText () {
+      const {totalPrice} = this
+      const {minPrice} = this.info
+      if (totalPrice === 0) {
+        return `￥${minPrice}元起送`
+      } else if (totalPrice < minPrice) {
+        return `还差￥${minPrice - totalPrice}元起送`
+      } else {
+        return '结算'
+      }
+    },
+    listShow () {
+      // 如果总数量为0，直接不显示
+      if (this.totalCount === 0) {
+        // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+        this.isShow = false
+        return false
+      } else {
+        if (this.isShow) {
+          this.$nextTick(() => {
+            // 防止创建多个BScroll，实现它的实例是一个单例
+            if (!this.scroll) {
+              // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+              this.scroll = new BScroll('.list-content', {
+                click: true
+              })
+            } else {
+              // 刷新滚动条，重新统计内容高度
+              this.scroll.refresh()
+            }
+          })
+        }
+        return this.isShow
+      }
+    }
+  },
+  methods: {
+    toggleIsShow () {
+      // 当总数量大于0时才切换
+      if (this.totalCount > 0) {
+        this.isShow = !this.isShow
+      }
+    },
+
+    clearCart () {
+      MessageBox.confirm('确定清空购物车吗？').then(
+        action => {
+          this.$store.dispatch('clearCart')
+        },
+        action => {
+          // 取消todo
+        }
+      )
+    }
+  },
+  components: {
+    CartControl
   }
+}
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

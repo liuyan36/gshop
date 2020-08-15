@@ -27,29 +27,29 @@
       <div class="food-cover"  @click="toggleIsShow"></div>
     </div>
   </transition>
-  
+
 </template>
 
 <script>
-  import CartControl from '../CartControl/CartControl.vue'
-  export default {
-    props: {
-      food: Object
-    },
-    data () {
-      return {
-        isShow: false
-      }
-    },
-    methods: {
-      toggleIsShow () {
-        this.isShow = !this.isShow
-      }
-    },
-    components: {
-      CartControl
+import CartControl from '../CartControl/CartControl.vue'
+export default {
+  props: {
+    food: Object
+  },
+  data () {
+    return {
+      isShow: false
     }
+  },
+  methods: {
+    toggleIsShow () {
+      this.isShow = !this.isShow
+    }
+  },
+  components: {
+    CartControl
   }
+}
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>

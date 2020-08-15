@@ -107,27 +107,27 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex'
-  export default {
-    data () {
-      return {
-        supportClasses: ['activity-green','activity-red','activity-orange'], // 存放优惠标签颜色class名
-        shopShow: false,
-        supportShow: false
-      }
+import {mapState} from 'vuex'
+export default {
+  data () {
+    return {
+      supportClasses: ['activity-green', 'activity-red', 'activity-orange'], // 存放优惠标签颜色class名
+      shopShow: false,
+      supportShow: false
+    }
+  },
+  computed: {
+    ...mapState(['info'])
+  },
+  methods: {
+    toggleShopShow () {
+      this.shopShow = !this.shopShow
     },
-    computed: {
-      ...mapState(['info'])
-    },
-    methods: {
-      toggleShopShow () {
-        this.shopShow = !this.shopShow
-      },
-      toggleSupportShow () {
-        this.supportShow = !this.supportShow
-      }
+    toggleSupportShow () {
+      this.supportShow = !this.supportShow
     }
   }
+}
 </script>
 
 <style lang="stylus" rel="stylesheet/stylus" scoped>
